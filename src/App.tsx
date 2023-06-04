@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
 
 function App() {
@@ -32,8 +30,18 @@ function App() {
             <button onClick={(e) => console.log(e)}>Submit</button>
           </form> : <></>}
           <label>Amount:</label>
-          <input className='amountInput' onChange={(e) => setCurrencyAmount(Number(e.target.value))}></input>
+          <input className='amountInput' onChange={(e) => {
+            if (isNaN(Number(e.target.value))) {
+              console.log("Not a number")
+            } else {
+              setCurrencyAmount(Number(e.target.value))
+            }
+          }}></input>
           <p>{currencyAmount}</p>
+        </div>
+        <div className='arrowWrapper'>
+          <div className='arrow-line'></div>
+          <div className='arrow-down'></div>
         </div>
         <div className='formWrapper outputForm'>
           <label>Amount:</label>
