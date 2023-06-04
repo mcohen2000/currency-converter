@@ -9,7 +9,7 @@ function App() {
     value: string;
     text: string;
   }
-  const currencies: Currency[] = [{ value: "USD", text: "US Dollar"}, { value: "EUR", text: "Euro"}, { value: "JPY", text: "Japanese Yen"}, { value: "GBP", text: "Great British Pound"},]
+  const currencies: Currency[] = [{ value: "USD", text: "US Dollar"}, { value: "BRL", text: "Brazilian Real"}, { value: "CNY", text: "Chinese Yuan Renminbi"}, { value: "EUR", text: "Euro"}, { value: "GBP", text: "Great British Pound"}, { value: "INR", text: "Indian Rupee"}, { value: "ILS", text: "Israeli New Shekel"}, { value: "JPY", text: "Japanese Yen"}, { value: "RUB", text: "Russian Rouble"},]
 
   return (
     <>
