@@ -2,9 +2,9 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [currencyType, setCurrencyType] = useState("USD");
-  const [customCurrencyType, setCustomCurrencyType] = useState("");
-  const [currencyAmount, setCurrencyAmount] = useState(0);
+  const [currencyType, setCurrencyType] = useState<string>("USD");
+  const [customCurrencyType, setCustomCurrencyType] = useState<string>("");
+  const [currencyAmount, setCurrencyAmount] = useState<number>(0);
   type Currency = {
     value: string;
     text: string;
