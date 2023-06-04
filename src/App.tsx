@@ -5,7 +5,11 @@ function App() {
   const [currencyType, setCurrencyType] = useState("USD");
   const [customCurrencyType, setCustomCurrencyType] = useState("");
   const [currencyAmount, setCurrencyAmount] = useState(0);
-  const currencies = [{ value: "USD", text: "US Dollar"}, { value: "EUR", text: "Euro"}, { value: "JPY", text: "Japanese Yen"}, { value: "GBP", text: "Great British Pound"},]
+  type Currency = {
+    value: string;
+    text: string;
+  }
+  const currencies: Currency[] = [{ value: "USD", text: "US Dollar"}, { value: "EUR", text: "Euro"}, { value: "JPY", text: "Japanese Yen"}, { value: "GBP", text: "Great British Pound"},]
 
   return (
     <>
