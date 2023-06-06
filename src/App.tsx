@@ -47,11 +47,13 @@ function App() {
           <div className='arrow-line'></div>
           <div className='arrow-down'></div>
         </div>
-        <div className='formWrapper outputForm'>
-          <label>Amount:</label>
-          <p className='amountInput'></p>
-        </div>
       </div>
+        <div className='conversionWrapper'>
+          <h2>Conversions:</h2>
+          <div className='conversionResults'>
+            <div className='currencyConversion'></div>
+          </div>
+        </div>
     </>
   )
 }
