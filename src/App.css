@@ -29,3 +29,10 @@
   width: 100%;
   border: 2px solid white;
 }
+.currencyConversion:nth-of-type(odd){
+  background-color: rgb(46, 46, 46);
+}
+.currencyConversion p{
+  margin: 0;
+  padding: 2rem 0;
+}
