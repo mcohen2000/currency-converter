@@ -1,25 +1,33 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
   const [currencyType, setCurrencyType] = useState<string>("USD");
   const [customCurrencyType, setCustomCurrencyType] = useState<string>("");
   const [currencyAmount, setCurrencyAmount] = useState<number>(0);
-  const [exchangeRates, setExchangeRates] = useState({
-  "AUD": 1.566015,
-  "CAD": 1.560132,
-  "CHF": 1.154727,
-  "CNY": 7.827874,
-  "GBP": 0.882047,
-  "JPY": 132.360679,
-  "EUR": 1.23396,
-  });
+  const [exchangeRates, setExchangeRates] = useState({});
   type Currency = {
     value: string;
     text: string;
   };
-  const currencies: Currency[] = [{ value: "USD", text: "US Dollar" }, { value: "BRL", text: "Brazilian Real" }, { value: "CNY", text: "Chinese Yuan Renminbi" }, { value: "EUR", text: "Euro" }, { value: "GBP", text: "Great British Pound" }, { value: "INR", text: "Indian Rupee" }, { value: "ILS", text: "Israeli New Shekel" }, { value: "JPY", text: "Japanese Yen" }, { value: "RUB", text: "Russian Rouble" },];
-  
+  const [currencies, setCurrencies] = useState<Currency[]>([{ value: "USD", text: "US Dollar" }]);
+  function fetchCurrencies() {
+    fetch(`http://api.exchangeratesapi.io/v1/symbols?access_key=${import.meta.env.VITE_API_KEY}`)
+      .then(res => { if (res.status === 200) { return res.json() } })
+      .then(data => {
+        console.log(Object.keys(data.symbols).map((key) => ({value: key, text: data.symbols[`${key}`]})))
+        setCurrencies(Object.keys(data.symbols).map((key) => ({value: key, text: data.symbols[`${key}`]})))
+      });
+  }
+  function fetchRates() {
+    fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${import.meta.env.VITE_API_KEY}`)
+      .then(res => { if (res.status === 200) { return res.json() } })
+      .then(data => setExchangeRates(data.rates));
+  }
+  useEffect(() => {
+    fetchCurrencies();
+    fetchRates();
+  }, [])
 
   return (
     <>
@@ -63,7 +71,7 @@ function App() {
           <div className='conversionResults'>
           {Object.entries(exchangeRates).map(([key, value]) => (
             <div className='currencyConversion'>
-              <p><span>{key}</span> - {Math.round((value * currencyAmount + Number.EPSILON) * 100) / 100}</p>
+              <p><span>{key}</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
             </div>))}
           </div>
         </div>
