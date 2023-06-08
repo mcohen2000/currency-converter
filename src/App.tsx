@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 
-function App() {
+const App: React.FC = () => {
   const [currencyType, setCurrencyType] = useState<string>("USD");
   const [customCurrencyType, setCustomCurrencyType] = useState<string>("");
   const [currencyAmount, setCurrencyAmount] = useState<number>(0);
-  const [exchangeRates, setExchangeRates] = useState({});
-  type Currency = {
+  interface ExchangeRate {
+    [key: string]: number;
+  };
+  const [exchangeRates, setExchangeRates] = useState<ExchangeRate>({});
+  interface Currency {
     value: string;
     text: string;
   };
@@ -18,16 +21,16 @@ function App() {
         console.log(Object.keys(data.symbols).map((key) => ({value: key, text: data.symbols[`${key}`]})))
         setCurrencies(Object.keys(data.symbols).map((key) => ({value: key, text: data.symbols[`${key}`]})))
       });
-  }
+  };
   function fetchRates() {
     fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${import.meta.env.VITE_API_KEY}`)
       .then(res => { if (res.status === 200) { return res.json() } })
       .then(data => setExchangeRates(data.rates));
-  }
+  };
   useEffect(() => {
     fetchCurrencies();
     fetchRates();
-  }, [])
+  }, []);
 
   return (
     <>
