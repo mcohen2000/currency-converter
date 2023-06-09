@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 const App: React.FC = () => {
-  const [currencyType, setCurrencyType] = useState<string>("USD");
+  const [currencyType, setCurrencyType] = useState<string>("");
+  const [outputCurrencyType, setOutputCurrencyType] = useState<string>("");
   // const [customCurrencyType, setCustomCurrencyType] = useState<string>("");
   const [currencyAmount, setCurrencyAmount] = useState<number>(0);
   interface ExchangeRate {
@@ -13,7 +14,7 @@ const App: React.FC = () => {
     value: string;
     text: string;
   };
-  const [currencies, setCurrencies] = useState<Currency[]>([{ value: "USD", text: "US Dollar" }]);
+  const [currencies, setCurrencies] = useState<Currency[]>([{value: "", text: ""}]);
   function fetchCurrencies() {
     fetch(`http://api.exchangeratesapi.io/v1/symbols?access_key=${import.meta.env.VITE_API_KEY}`)
       .then(res => { if (res.status === 200) { return res.json() } })
@@ -26,10 +27,10 @@ const App: React.FC = () => {
       .then(res => { if (res.status === 200) { return res.json() } })
       .then(data => setExchangeRates(data.rates));
   };
-  useEffect(() => {
-    fetchCurrencies();
-    fetchRates();
-  }, []);
+  // useEffect(() => {
+  //   fetchCurrencies();
+  //   fetchRates();
+  // }, []);
 
   return (
     <>
@@ -42,11 +43,12 @@ const App: React.FC = () => {
             setCurrencyType(e.target.value);
             // setCustomCurrencyType("");
           }}>
-            {currencies.map((item, index) => <option
+            <option selected disabled>Select a Currency</option>
+            {currencies[0].value !== "" ? currencies.map((item, index) => <option
               value={item.value}
               key={index}
               // onClick={() => setCustomCurrencyType("")}
-            >{item.text}</option>)}
+            >{item.text}</option>):<></>}
             {/* <option value="OTHER" onClick={() => setCustomCurrencyType("")}>Other</option> */}
             {/* {customCurrencyType !== "" ? <option value={customCurrencyType}>{customCurrencyType}</option>: <></>} */}
           </select>
@@ -72,15 +74,30 @@ const App: React.FC = () => {
           <div className='arrow-down'></div>
         </div>
       </div>
+      <div className='targetOutputWrapper'>
+        <h2>Target Currency:</h2>
+        <select onChange={(e) => setOutputCurrencyType(e.target.value)}>
+          <option selected disabled>Select a Currency</option>
+          {currencies[0].value !== "" ? currencies.map((item, index) => <option
+            value={item.value}
+            key={index}
+          >{item.text}</option>):<></>}
+        </select>
+        { currencyType !== "" ? <h3>{ outputCurrencyType + " - " + Math.round(((exchangeRates[outputCurrencyType] / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</h3> : <></>}
+        
+
+      </div>
+      {currencies[0].value !== "" ? (
         <div className='conversionWrapper'>
-          <h2>Conversions:</h2>
-          <div className='conversionResults'>
+        <h2>Other Currencies:</h2>
+        <div className='conversionResults'>
           {Object.entries(exchangeRates).map(([key, value]) => (
             <div className='currencyConversion' key={key}>
               <p><span>{key}</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
             </div>))}
-          </div>
         </div>
+      </div>) : <></>}
+      
     </>
   )
 }
