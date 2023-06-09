@@ -4,7 +4,6 @@ import './App.css'
 const App: React.FC = () => {
   const [currencyType, setCurrencyType] = useState<string>("");
   const [outputCurrencyType, setOutputCurrencyType] = useState<string>("");
-  // const [customCurrencyType, setCustomCurrencyType] = useState<string>("");
   const [currencyAmount, setCurrencyAmount] = useState<number>(0);
   interface ExchangeRate {
     [key: string]: number;
@@ -27,10 +26,10 @@ const App: React.FC = () => {
       .then(res => { if (res.status === 200) { return res.json() } })
       .then(data => setExchangeRates(data.rates));
   };
-  // useEffect(() => {
-  //   fetchCurrencies();
-  //   fetchRates();
-  // }, []);
+  useEffect(() => {
+    fetchCurrencies();
+    fetchRates();
+  }, []);
 
   return (
     <>
@@ -39,26 +38,13 @@ const App: React.FC = () => {
       <div className='baseCurrencyForm'>
         <div className='formWrapper inputForm'>
           <label>Currency: { currencyType }</label>
-          <select className='currencyInput' value={currencyType} onChange={(e) => {
-            setCurrencyType(e.target.value);
-            // setCustomCurrencyType("");
-          }}>
-            <option selected disabled>Select a Currency</option>
+          <select className='currencyInput' value={currencyType} onChange={(e) => setCurrencyType(e.target.value)}>
+            <option selected disabled value="">Select a Currency</option>
             {currencies[0].value !== "" ? currencies.map((item, index) => <option
               value={item.value}
               key={index}
-              // onClick={() => setCustomCurrencyType("")}
             >{item.text}</option>):<></>}
-            {/* <option value="OTHER" onClick={() => setCustomCurrencyType("")}>Other</option> */}
-            {/* {customCurrencyType !== "" ? <option value={customCurrencyType}>{customCurrencyType}</option>: <></>} */}
           </select>
-          {/* {currencyType === "OTHER" ? <form onSubmit={(e) => {
-            e.preventDefault();
-            setCurrencyType(customCurrencyType);
-          }}>
-            <input autoFocus placeholder='Currency Code' onChange={(e) => setCustomCurrencyType(e.target.value)} onBlur={(e) => setCurrencyType(e.target.value.toUpperCase())} />
-            <button onClick={(e) => console.log(e)}>Submit</button>
-          </form> : <></>} */}
           <label>Amount:</label>
           <input className='amountInput' onChange={(e) => {
             if (isNaN(Number(e.target.value))) {
@@ -83,11 +69,11 @@ const App: React.FC = () => {
             key={index}
           >{item.text}</option>):<></>}
         </select>
-        { currencyType !== "" ? <h3>{ outputCurrencyType + " - " + Math.round(((exchangeRates[outputCurrencyType] / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</h3> : <></>}
+        { currencyType !== "" && currencyAmount > 0 && outputCurrencyType !== ""? <h3>{ outputCurrencyType + " - " + Math.round(((exchangeRates[outputCurrencyType] / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</h3> : <></>}
         
 
       </div>
-      {currencies[0].value !== "" ? (
+      {currencies[0].value !== "" && currencyAmount > 0 && outputCurrencyType !== "" ? (
         <div className='conversionWrapper'>
         <h2>Other Currencies:</h2>
         <div className='conversionResults'>
