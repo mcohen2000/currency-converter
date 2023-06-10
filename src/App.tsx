@@ -68,7 +68,7 @@ const App: React.FC = () => {
             key={index}
           >{item.text}</option>):<></>}
         </select>
-        { currencyType !== "" && currencyAmount > 0 && outputCurrencyType !== ""? <h3>{ outputCurrencyType + " - " + Math.round(((exchangeRates[outputCurrencyType] / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</h3> : <></>}
+        { currencyType !== "" && currencyAmount > 0 && outputCurrencyType !== ""? <h3>{ currencies[currencies.map((item) => item.value).indexOf(outputCurrencyType)].text + " (" + outputCurrencyType + ") - " + Math.round(((exchangeRates[outputCurrencyType] / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</h3> : <></>}
         
 
       </div>
@@ -78,7 +78,7 @@ const App: React.FC = () => {
         <div className='conversionResults'>
           {Object.entries(exchangeRates).map(([key, value]) => (
             <div className='currencyConversion' key={key}>
-              <p><span>{key}</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
+              <p><span>{ currencies[currencies.map((item) => item.value).indexOf(key)].text} ({key})</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
             </div>))}
         </div>
       </div>) : <></>}
