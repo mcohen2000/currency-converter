@@ -15,16 +15,16 @@ const App: React.FC = () => {
   };
   const [currencies, setCurrencies] = useState<Currency[]>([{value: "", text: ""}]);
   function fetchCurrencies() {
-    fetch(`http://api.exchangeratesapi.io/v1/symbols?access_key=${import.meta.env.VITE_API_KEY}`)
+    fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/codes`)
       .then(res => { if (res.status === 200) { return res.json() } })
       .then(data => {
-        setCurrencies(Object.keys(data.symbols).map((key) => ({value: key, text: data.symbols[`${key}`]})))
+        setCurrencies(data.supported_codes.map((item: String[]) => ({value: item[0], text: item[1]})))
       });
   };
   function fetchRates() {
-    fetch(`http://api.exchangeratesapi.io/v1/latest?access_key=${import.meta.env.VITE_API_KEY}`)
+    fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/latest/USD`)
       .then(res => { if (res.status === 200) { return res.json() } })
-      .then(data => setExchangeRates(data.rates));
+      .then(data => setExchangeRates(data.conversion_rates));
   };
   useEffect(() => {
     fetchCurrencies();
@@ -53,12 +53,11 @@ const App: React.FC = () => {
               setCurrencyAmount(Number(e.target.value))
             }
           }}></input>
-          <p>{currencyAmount}</p>
         </div>
-        <div className='arrowWrapper'>
-          <div className='arrow-line'></div>
-          <div className='arrow-down'></div>
-        </div>
+      </div>
+      <div className='arrowWrapper'>
+        <div className='arrow-line'></div>
+        <div className='arrow-down'></div>
       </div>
       <div className='targetOutputWrapper'>
         <h2>Target Currency:</h2>
