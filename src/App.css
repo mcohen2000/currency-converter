@@ -38,8 +38,17 @@
   background-color: rgb(46, 46, 46);
 }
 .currencyConversion p{
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0;
   padding: 2rem 0;
+}
+.flagWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: .75rem;
 }
 .targetOutputWrapper h2{
   margin: 0;
