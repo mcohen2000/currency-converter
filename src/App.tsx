@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import CurrencyFlag from 'react-currency-flags';
 import './App.css'
 
 const App: React.FC = () => {
@@ -34,10 +35,11 @@ const App: React.FC = () => {
   return (
     <>
       <h1>Currency Converter</h1>
-      <p>by <a href="">Michael Cohen</a></p>
+      <p>by <a href="https://github.com/mcohen2000" target="_blank" rel="noreferrer noopener">Michael Cohen</a></p>
+      {/* <CurrencyFlag currency="USD" size="lg" /> */}
       <div className='baseCurrencyForm'>
         <div className='formWrapper inputForm'>
-          <label>Currency: { currencyType }</label>
+          <label>Currency: <span className='flagWrapper'><CurrencyFlag currency={currencyType} size="lg" /></span>{ currencyType }</label>
           <select className='currencyInput' value={currencyType} onChange={(e) => setCurrencyType(e.target.value)}>
             <option selected disabled value="">Select a Currency</option>
             {currencies[0].value !== "" ? currencies.map((item, index) => <option
@@ -68,7 +70,7 @@ const App: React.FC = () => {
             key={index}
           >{item.text}</option>):<></>}
         </select>
-        { currencyType !== "" && currencyAmount > 0 && outputCurrencyType !== ""? <h3>{ currencies[currencies.map((item) => item.value).indexOf(outputCurrencyType)].text + " (" + outputCurrencyType + ") - " + Math.round(((exchangeRates[outputCurrencyType] / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</h3> : <></>}
+        { currencyType !== "" && currencyAmount > 0 && outputCurrencyType !== ""? <h3><span className='flagWrapper'><CurrencyFlag currency={outputCurrencyType} size="lg" /></span>{ currencies[currencies.map((item) => item.value).indexOf(outputCurrencyType)].text + " (" + outputCurrencyType + ") - " + Math.round(((exchangeRates[outputCurrencyType] / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</h3> : <></>}
         
 
       </div>
@@ -78,7 +80,7 @@ const App: React.FC = () => {
         <div className='conversionResults'>
           {Object.entries(exchangeRates).map(([key, value]) => (
             <div className='currencyConversion' key={key}>
-              <p><span>{ currencies[currencies.map((item) => item.value).indexOf(key)].text} ({key})</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
+              <p><span className='flagWrapper'><CurrencyFlag currency={key} size="lg" /></span><span>{ currencies[currencies.map((item) => item.value).indexOf(key)].text} ({key})</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
             </div>))}
         </div>
       </div>) : <></>}
