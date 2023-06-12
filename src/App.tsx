@@ -41,7 +41,7 @@ const App: React.FC = () => {
         <div className='formWrapper inputForm'>
           <label>Currency: <span className='flagWrapper'><CurrencyFlag currency={currencyType} size="lg" /></span>{ currencyType }</label>
           <select className='currencyInput' value={currencyType} onChange={(e) => setCurrencyType(e.target.value)}>
-            <option selected disabled value="">Select a Currency</option>
+            <option disabled value="">Select a Currency</option>
             {currencies[0].value !== "" ? currencies.map((item, index) => <option
               value={item.value}
               key={index}
@@ -63,8 +63,8 @@ const App: React.FC = () => {
       </div>
       <div className='targetOutputWrapper'>
         <h2>Target Currency:</h2>
-        <select onChange={(e) => setOutputCurrencyType(e.target.value)}>
-          <option selected disabled>Select a Currency</option>
+        <select value={outputCurrencyType} onChange={(e) => setOutputCurrencyType(e.target.value)}>
+          <option disabled value="">Select a Currency</option>
           {currencies[0].value !== "" ? currencies.map((item, index) => <option
             value={item.value}
             key={index}
