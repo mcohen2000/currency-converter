@@ -31,6 +31,10 @@ const App: React.FC = () => {
   //   fetchCurrencies();
   //   fetchRates();
   // }, []);
+  useEffect(() => {
+    setExchangeRates({});
+    setCurrencies([{value: "", text: ""}]);
+  }, []);
 
   return (
     <>
