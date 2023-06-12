@@ -15,22 +15,22 @@ const App: React.FC = () => {
     text: string;
   };
   const [currencies, setCurrencies] = useState<Currency[]>([{value: "", text: ""}]);
-  function fetchCurrencies() {
-    fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/codes`)
-      .then(res => { if (res.status === 200) { return res.json() } })
-      .then(data => {
-        setCurrencies(data.supported_codes.map((item: String[]) => ({value: item[0], text: item[1]})))
-      });
-  };
-  function fetchRates() {
-    fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/latest/USD`)
-      .then(res => { if (res.status === 200) { return res.json() } })
-      .then(data => setExchangeRates(data.conversion_rates));
-  };
-  useEffect(() => {
-    fetchCurrencies();
-    fetchRates();
-  }, []);
+  // function fetchCurrencies() {
+  //   fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/codes`)
+  //     .then(res => { if (res.status === 200) { return res.json() } })
+  //     .then(data => {
+  //       setCurrencies(data.supported_codes.map((item: String[]) => ({value: item[0], text: item[1]})))
+  //     });
+  // };
+  // function fetchRates() {
+  //   fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/latest/USD`)
+  //     .then(res => { if (res.status === 200) { return res.json() } })
+  //     .then(data => setExchangeRates(data.conversion_rates));
+  // };
+  // useEffect(() => {
+  //   fetchCurrencies();
+  //   fetchRates();
+  // }, []);
 
   return (
     <>
@@ -80,7 +80,7 @@ const App: React.FC = () => {
         <div className='conversionResults'>
           {Object.entries(exchangeRates).map(([key, value]) => (
             <div className='currencyConversion' key={key}>
-              <p><span className='flagWrapper'><CurrencyFlag currency={key} size="lg" /></span><span>{ currencies[currencies.map((item) => item.value).indexOf(key)].text} ({key})</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
+              <p><span className='flagWrapper'><CurrencyFlag currency={key} size="lg" /></span><span>{ currencies[currencies.map((item) => item.value).indexOf(key)].text} ({key})&nbsp;</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
             </div>))}
         </div>
       </div>) : <></>}
