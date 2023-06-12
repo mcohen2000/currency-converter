@@ -4,7 +4,7 @@ const handler: Handler = async (event: HandlerEvent, context: HandlerContext) =>
   
   return {
     statusCode: 200,
-    body: JSON.stringify({ message: import.meta.env.VITE_TEST }),
+    body: JSON.stringify({ message: import.meta.env.VITE_TEST, event, context }),
   };
 };
 
