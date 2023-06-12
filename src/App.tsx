@@ -15,25 +15,30 @@ const App: React.FC = () => {
     text: string;
   };
   const [currencies, setCurrencies] = useState<Currency[]>([{value: "", text: ""}]);
-  // function fetchCurrencies() {
-  //   fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/codes`)
-  //     .then(res => { if (res.status === 200) { return res.json() } })
-  //     .then(data => {
-  //       setCurrencies(data.supported_codes.map((item: String[]) => ({value: item[0], text: item[1]})))
-  //     });
-  // };
-  // function fetchRates() {
-  //   fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/latest/USD`)
-  //     .then(res => { if (res.status === 200) { return res.json() } })
-  //     .then(data => setExchangeRates(data.conversion_rates));
-  // };
-  // useEffect(() => {
-  //   fetchCurrencies();
-  //   fetchRates();
-  // }, []);
+  function fetchCurrencies() {
+    // fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/codes`)
+    //   .then(res => { if (res.status === 200) { return res.json() } })
+    //   .then(data => {
+    //     setCurrencies(data.supported_codes.map((item: String[]) => ({value: item[0], text: item[1]})))
+    //   });
+    fetch(`/.netlify/functions/fetchCurrencies`)
+      .then(res => res.json())
+      .then(data => {
+        console.log(data);
+        setCurrencies(data.response);
+      });
+  };
+  function fetchRates() {
+    // fetch(`https://v6.exchangerate-api.com/v6/${import.meta.env.VITE_ER_COM_API_KEY}/latest/USD`)
+    //   .then(res => { if (res.status === 200) { return res.json() } })
+    //   .then(data => setExchangeRates(data.conversion_rates));
+    fetch(`/.netlify/functions/fetchRates`)
+      .then(res => res.json())
+      .then(data => setExchangeRates(data.response));
+  };
   useEffect(() => {
-    setExchangeRates({});
-    setCurrencies([{value: "", text: ""}]);
+    fetchCurrencies();
+    fetchRates();
   }, []);
 
   return (
