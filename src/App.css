@@ -1,8 +1,11 @@
 #root {
+  width: 100vw;
   max-width: 1280px;
   /* margin: 0 auto; */
-  padding: 2rem;
   text-align: center;
+}
+.appWrapper{
+  padding: 2rem;
 }
 .inputForm{
   display: flex;
@@ -42,13 +45,19 @@
   justify-content: center;
   align-items: center;
   margin: 0;
-  padding: 2rem .5rem;
+  padding: 2rem 1rem;
 }
 .flagWrapper{
   display: flex;
   justify-content: center;
   align-items: center;
   margin: .75rem;
+}
+p .flagWrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 .75rem 0 0;
 }
 .targetOutputWrapper h2{
   margin: 0;

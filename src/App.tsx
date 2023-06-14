@@ -42,7 +42,7 @@ const App: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div className='appWrapper'>
       <h1>Currency Converter</h1>
       <p>by <a href="https://github.com/mcohen2000" target="_blank" rel="noreferrer noopener">Michael Cohen</a></p>
       {/* <CurrencyFlag currency="USD" size="lg" /> */}
@@ -94,7 +94,7 @@ const App: React.FC = () => {
         </div>
       </div>) : <></>}
       
-    </>
+    </div>
   )
 }
 
