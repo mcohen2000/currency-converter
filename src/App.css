@@ -5,8 +5,14 @@
   text-align: center;
 }
 .appWrapper{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 2rem;
 }
+/* .formWrapper{
+  max-width: 800px;
+} */
 .inputForm{
   display: flex;
   flex-direction: column;

@@ -72,7 +72,7 @@ const App: React.FC = () => {
       </div>
       <div className='targetOutputWrapper'>
         <h2>Target Currency:</h2>
-        <select value={outputCurrencyType} onChange={(e) => setOutputCurrencyType(e.target.value)}>
+        <select className="formWrapper" value={outputCurrencyType} onChange={(e) => setOutputCurrencyType(e.target.value)}>
           <option disabled value="">Select a Currency</option>
           {currencies[0].value !== "" ? currencies.map((item, index) => <option
             value={item.value}
