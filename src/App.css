@@ -41,6 +41,7 @@
 .conversionWrapper{
   margin: 2rem 0;
   width: 100%;
+  max-width: 600px;
   border: 2px solid white;
 }
 .currencyConversion:nth-of-type(odd){
