@@ -89,7 +89,7 @@ const App: React.FC = () => {
         <div className='conversionResults'>
           {Object.entries(exchangeRates).map(([key, value]) => (
             <div className='currencyConversion' key={key}>
-              <p><span className='flagWrapper'><CurrencyFlag currency={key} size="lg" /></span><span>{ currencies[currencies.map((item) => item.value).indexOf(key)].text} ({key})&nbsp;</span> - {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
+              <p><span className='flagWrapper'><CurrencyFlag currency={key} size="lg" /></span><span>{ currencies[currencies.map((item) => item.value).indexOf(key)].text} ({key})&nbsp;-&nbsp;</span> {Math.round(((value / exchangeRates[`${currencyType}`]) * currencyAmount + Number.EPSILON) * 100) / 100}</p>
             </div>))}
         </div>
       </div>) : <></>}
