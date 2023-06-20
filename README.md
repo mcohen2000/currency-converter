@@ -1,4 +1,4 @@
-# currency-converter
+# Currency Converter
 
 Tech Stack: TypeScript, ReactJS, CSS, Netlify (Functions)
 
