@@ -50,7 +50,7 @@ const App: React.FC = () => {
       <p>by <a href="https://github.com/mcohen2000" target="_blank" rel="noreferrer noopener">Michael Cohen</a></p>
       <div className='baseCurrencyForm'>
         <div className='formWrapper inputForm'>
-          <label>Currency: <span className='flagWrapper'><CurrencyFlag currency={currencyType} size="lg" /></span>{ currencyType }</label>
+          <label><h2>Base Currency:</h2><span className='flagWrapper'><CurrencyFlag currency={currencyType} size="lg" /></span>{ currencyType }</label>
           <select className='currencyInput' value={currencyType} onChange={(e) => setCurrencyType(e.target.value)}>
             <option disabled value="">Select a Currency</option>
             {currencies[0].value !== "" ? currencies.map((item, index) => <option
