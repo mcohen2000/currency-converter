@@ -52,7 +52,12 @@
   margin: 2rem 0;
   width: 100%;
   max-width: 600px;
+  overflow-y: hidden;
   border: 2px solid white;
+}
+.conversionResults{
+  height: calc(80vh - 36px);
+  overflow-y: auto;
 }
 .currencyConversion:nth-of-type(odd){
   background-color: rgb(46, 46, 46);
